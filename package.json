@@ -1,7 +1,10 @@
 {
-  "name": "promised-ssh",
+  "name": "to-ssh",
   "version": "0.1.1",
   "keywords": [
+    "task",
+    "tossh",
+    "to-ssh",
     "ssh",
     "ssh2",
     "secure",
@@ -13,16 +16,16 @@
     "connect"
   ],
   "license": "MIT",
-  "description": "Simple and easy to use SSH2 wrapper",
+  "description": "Simple and easy to use Task-Oriented SSH2 wrapper",
   "author": "Przemyslaw Tomaszewski <firian@o2.pl>",
-  "homepage": "https://github.com/firian/promised-ssh",
+  "homepage": "https://github.com/firian/to-ssh",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/firian/promised-ssh.git"
+    "url": "http://github.com/firian/to-ssh.git"
   },
   "dependencies": {
     "node-uuid": "1.4.x",
