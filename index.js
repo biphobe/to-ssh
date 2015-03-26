@@ -65,29 +65,12 @@ module.exports = (function () {
             status: 'pending',
             command: command,
             callbacks: callbacks,
+            outputIsError: false,
             data: ''
         }
 
         this.tasks.order.push(id);
         this.tasks.data[id] = task;
-
-        this.runTasks();
-    };
-
-    PromisedSSH.prototype.completeTask = function(id, status) {
-        var task = this.tasks.data[id];
-
-        task.status = 'done';
-
-        if(status) {
-            if(task.callbacks && task.callbacks.success) {
-                task.callbacks.success(task.data);
-            }
-        } else {
-            if(task.callbacks && task.callbacks.error) {
-                task.callbacks.error(task.data);
-            }
-        }
 
         this.runTasks();
     };
@@ -150,11 +133,11 @@ module.exports = (function () {
             if(err) {
                 task.data = err;
 
-                that.completeTask(id, false);
+                that.completeTask(id);
             }
 
             stream.on('close', function(code, signal) {
-                that.completeTask(id, true);
+                that.completeTask(id);
             });
 
             stream.on('data', function(data) {
@@ -162,9 +145,28 @@ module.exports = (function () {
             });
 
             stream.stderr.on('data', function(error) {
+                task.outputIsError = true;
                 task.data += error;
             });
         });
+    };
+
+    PromisedSSH.prototype.completeTask = function(id) {
+        var task = this.tasks.data[id];
+
+        task.status = 'done';
+
+        if(!task.outputIsError) {
+            if(task.callbacks && task.callbacks.success) {
+                task.callbacks.success(task.data);
+            }
+        } else {
+            if(task.callbacks && task.callbacks.error) {
+                task.callbacks.error(task.data);
+            }
+        }
+
+        this.runTasks();
     };
 
     return PromisedSSH;
