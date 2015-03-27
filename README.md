@@ -1,7 +1,7 @@
-### This release is EXPERIMENTAL and in development.
+### This release is experimental
+### Stable release will be deployed in the middle of April!
 
-### Api is a subject to change
-### Stable release will be deployed in the middle of April
+# ToSSH
 
 ## Description
 
@@ -21,11 +21,12 @@ $ npm install promised-ssh
 
 ## Features
 
-* [@todo]
+* Can handle multiple connections to different hosts
+* Can queue tasks or send them in parallel
 
-## API & Examples
+# API & Examples
 
-# Examples
+## Examples
 
 
 * [@todo]
@@ -33,7 +34,7 @@ $ npm install promised-ssh
 ```javascript
 [@todo]
 ```
-# API
+## API
 
 [@todo]
 
