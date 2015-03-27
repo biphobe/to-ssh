@@ -4,10 +4,10 @@ var uuid = require('node-uuid');
 module.exports = (function () {
     function PromisedSSH(options) {
         this.host = options.host;
-        this.port = options.port;
-        this.username = options.username;
         this.privateKey = options.privateKey;
-
+        
+        this.port = options.port ? options.port : 22;
+        this.username = options.username ? options.username : 'root';
         this.parallel = options.parallel ? options.parallel : 1;
 
         this.connection = new Client();
