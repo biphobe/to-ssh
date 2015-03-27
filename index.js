@@ -8,7 +8,7 @@ module.exports = (function () {
         this.username = options.username;
         this.privateKey = options.privateKey;
 
-        this.maxConcurrent = 3;
+        this.parallel = options.parallel ? options.parallel : 1;
 
         this.connection = new Client();
         this.connected = false;
@@ -115,7 +115,7 @@ module.exports = (function () {
 
         var that = this;
 
-        var tasksToRunCount = Math.min(pendingTasks.length, this.maxConcurrent - ongoingTasks.length);
+        var tasksToRunCount = Math.min(pendingTasks.length, this.parallel - ongoingTasks.length);
 
         for (var i = 0; i < tasksToRunCount; i++) {
             var id = pendingTasks[i];
