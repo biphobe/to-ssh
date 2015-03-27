@@ -13,10 +13,8 @@ module.exports = (function () {
         this.connection = new Client();
         this.connected = false;
 
-        this.tasks = {
-            data: {},
-            order: []
-        };
+        this.tasks = {};
+        this.order = [];
     }
 
     PromisedSSH.prototype.connect = function (callbacks) {
@@ -58,19 +56,19 @@ module.exports = (function () {
         }
     };
 
-    PromisedSSH.prototype.addTask = function(command, callbacks) {
+    PromisedSSH.prototype.addTask = function(command, callback) {
         var id = uuid.v4();
 
         var task = {
             status: 'pending',
             command: command,
-            callbacks: callbacks,
-            outputIsError: false,
-            data: ''
+            callback: callback,
+            stdout: '',
+            stderr: ''
         }
 
-        this.tasks.order.push(id);
-        this.tasks.data[id] = task;
+        this.order.push(id);
+        this.tasks[id] = task;
 
         this.runTasks();
     };
@@ -81,8 +79,8 @@ module.exports = (function () {
         var that = this;
 
         // iterate through all the tasks
-        this.tasks.order.forEach(function(id) {
-            var task = that.tasks.data[id];
+        this.order.forEach(function(id) {
+            var task = that.tasks[id];
 
             results.push(id);
 
@@ -125,13 +123,13 @@ module.exports = (function () {
     PromisedSSH.prototype.executeTask = function(id) {
         var that = this;
 
-        var task = this.tasks.data[id];
+        var task = this.tasks[id];
 
         task.status = 'ongoing';
 
         this.connection.exec(task.command, function(err, stream) {
             if(err) {
-                task.data = err;
+                task.stderr = err;
 
                 that.completeTask(id);
             }
@@ -141,29 +139,22 @@ module.exports = (function () {
             });
 
             stream.on('data', function(data) {
-                task.data += data;
+                task.stdout += data;
             });
 
             stream.stderr.on('data', function(error) {
-                task.outputIsError = true;
-                task.data += error;
+                task.stderr += error;
             });
         });
     };
 
     PromisedSSH.prototype.completeTask = function(id) {
-        var task = this.tasks.data[id];
+        var task = this.tasks[id];
 
         task.status = 'done';
 
-        if(!task.outputIsError) {
-            if(task.callbacks && task.callbacks.success) {
-                task.callbacks.success(task.data);
-            }
-        } else {
-            if(task.callbacks && task.callbacks.error) {
-                task.callbacks.error(task.data);
-            }
+        if(task.callback) {
+            task.callback(task.stdout, task.stderr);
         }
 
         this.runTasks();
