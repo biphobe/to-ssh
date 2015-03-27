@@ -1,7 +1,7 @@
-### This release is EXPERIMENTAL and in development.
+### This release is experimental
+### Stable release will be deployed in the middle of April!
 
-### Api is a subject to change
-### Stable release will be deployed in the middle of April
+# ToSSH
 
 ## Description
 
@@ -10,31 +10,47 @@ Simple and easy to use SSH2 wrapper for [node.js](http://nodejs.org/).
 
 ## Requirements
 
-* [node.js](http://nodejs.org/) -- v0.8.7 or newer ([@todo] - to test)
+* [node.js](http://nodejs.org/) - v0.8.7 or newer ([@todo] - check it - may run on even lower versions)
 
 
-## Install
+## Installation
 
 ```bash
-$ npm install promised-ssh
+$ npm install to-ssh
+```
+
+Remember to load the library:
+
+```javascript
+var ToSSH = require('to-ssh');
 ```
 
 ## Features
 
-* [@todo]
+* Handles multiple connections to different hosts in the same time
+* Can queue tasks
+* Can send requests in parallel
 
-## API & Examples
+# API & Examples
 
-# Examples
+## Examples
 
+```javascript
+var ssh = new ToSSH({
+	host: "http://github.com",
+	privateKey: fs.readFileSync({{ path-to-your-key }})
+});
 
-* [@todo]
+ssh.connect();
+
+ssh.addTask('whoami', function(data) {
+	console.log(data); // "root"
+});
+```
 
 ```javascript
 [@todo]
 ```
-# API
+## API
 
 [@todo]
-
-[connect, findtasks]
