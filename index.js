@@ -2,7 +2,7 @@ var Client =  require('ssh2').Client;
 var uuid = require('node-uuid');
 
 module.exports = (function () {
-    function PromisedSSH(options) {
+    function ToSSH(options) {
         this.host = options.host;
         this.privateKey = options.privateKey;
         
@@ -17,7 +17,7 @@ module.exports = (function () {
         this.order = [];
     }
 
-    PromisedSSH.prototype.connect = function (callback) {
+    ToSSH.prototype.connect = function (callback) {
         var that = this;
 
         this.connection.on('ready', function() {
@@ -56,11 +56,11 @@ module.exports = (function () {
         }
     };
 
-    PromisedSSH.prototype.disconnect = function() {
+    ToSSH.prototype.disconnect = function() {
         this.connection.end();
     };
 
-    PromisedSSH.prototype.addTask = function(command, callback) {
+    ToSSH.prototype.addTask = function(command, callback) {
         var id = uuid.v4();
 
         var task = {
@@ -77,7 +77,7 @@ module.exports = (function () {
         this.runTasks();
     };
 
-    PromisedSSH.prototype.findTasks = function(criteria) {
+    ToSSH.prototype.findTasks = function(criteria) {
         var results = [];
 
         var that = this;
@@ -100,7 +100,7 @@ module.exports = (function () {
         return results;
     };
 
-    PromisedSSH.prototype.runTasks = function() {
+    ToSSH.prototype.runTasks = function() {
         if(this.connected === false) {
             return false;
         }
@@ -124,7 +124,7 @@ module.exports = (function () {
         }
     }
 
-    PromisedSSH.prototype.executeTask = function(id) {
+    ToSSH.prototype.executeTask = function(id) {
         var that = this;
 
         var task = this.tasks[id];
@@ -152,7 +152,7 @@ module.exports = (function () {
         });
     };
 
-    PromisedSSH.prototype.completeTask = function(id, status) {
+    ToSSH.prototype.completeTask = function(id, status) {
         var task = this.tasks[id];
 
         task.status = status;
@@ -164,5 +164,5 @@ module.exports = (function () {
         this.runTasks();
     };
 
-    return PromisedSSH;
+    return ToSSH;
 })();
