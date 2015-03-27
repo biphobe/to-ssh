@@ -43,9 +43,34 @@ var ssh = new ToSSH({
 
 ssh.connect();
 
-ssh.addTask('whoami', function(data) {
-	console.log(data); // "root"
+ssh.addTask('whoami', function(data, error) {
+	if(!error) {
+		console.log(data); // "root"
+	}
 });
+```
+
+```javascript
+var ssh = new ToSSH({
+	host: "http://github.com",
+	privateKey: fs.readFileSync({{ path-to-your-key }})
+	port: 22,
+	username: "root"
+	parallel: 2
+});
+
+ssh.connect(function(hasError) {
+	if(!hasError) {
+		console.log("Connection established!");
+	}
+});
+
+ssh.addTask('sleep 2; date +"%T"'); // 19:23:28\n
+ssh.addTask('sleep 2; date +"%T"'); // 19:23:28\n
+ssh.addTask('sleep 2; date +"%T"'); // 19:23:30\n
+ssh.addTask('sleep 2; date +"%T"'); // 19:23:30\n
+
+ssh.disconnect();
 ```
 
 ## API
