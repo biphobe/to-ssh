@@ -48,9 +48,6 @@ ssh.addTask('whoami', function(data) {
 });
 ```
 
-```javascript
-[@todo]
-```
 ## API
 
 [@todo]
