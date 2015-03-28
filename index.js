@@ -6,7 +6,7 @@ module.exports = (function () {
         this.host = options.host;
         this.port = options.port ? options.port : 22;
         this.username = options.username ? options.username : 'root';
-        this.parallel = options.parallel ? options.parallel : 1;
+        this.concurrency = options.concurrency ? options.concurrency : 1;
 
         if(options.password) {
             this.password = options.password;
@@ -142,7 +142,7 @@ module.exports = (function () {
 
         var that = this;
 
-        var tasksToRunCount = Math.min(pendingTasks.length, this.parallel - ongoingTasks.length);
+        var tasksToRunCount = Math.min(pendingTasks.length, this.concurrency - ongoingTasks.length);
 
         for (var i = 0; i < tasksToRunCount; i++) {
             var id = pendingTasks[i];
