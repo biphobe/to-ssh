@@ -1,11 +1,12 @@
-### This release is experimental
-### Stable release will be deployed in the middle of April!
-
-# ToSSH
+# Task-Oriented SSH
 
 ## Description
 
 Simple and easy to use SSH2 wrapper for [node.js](http://nodejs.org/).
+
+Why task-oriented? Because each command you want to invoke is being added to the queue as task to run - it's for the sole purpose of giving you the ability to manipulate concurrency.
+
+You can add 5 tasks to queue and run them all in the same time or run them one by one. It's up to you.
 
 
 ## Requirements
@@ -28,8 +29,9 @@ var ToSSH = require('to-ssh');
 ## Features
 
 * Handles multiple connections to different hosts in the same time
-* Can queue tasks
-* Can send requests in parallel
+* Can queue requests or send them in parallel
+* Runs callbacks asynchronously
+* Easy to implement, use and maintain
 
 # API & Examples
 
