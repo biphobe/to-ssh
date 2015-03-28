@@ -4,11 +4,21 @@ var uuid = require('node-uuid');
 module.exports = (function () {
     function ToSSH(options) {
         this.host = options.host;
-        this.privateKey = options.privateKey;
-        
         this.port = options.port ? options.port : 22;
         this.username = options.username ? options.username : 'root';
         this.parallel = options.parallel ? options.parallel : 1;
+
+        if(options.password) {
+            this.password = options.password;
+        }
+
+        if(options.passphrase) {
+            this.passphrase = options.passphrase;
+        }
+
+        if(options.privateKey) {
+            this.privateKey = options.privateKey;
+        }
 
         this.connection = new Client();
         this.connected = false;
@@ -43,12 +53,29 @@ module.exports = (function () {
         });
 
         try {
-            this.connection.connect({
+            var connectionOptions = {
                 host: this.host,
                 port: this.port,
-                username: this.username,
-                privateKey: this.privateKey
-            });
+                username: this.username
+            };
+
+            if(typeof this.password !== "undefined") {
+                connectionOptions.password = this.password;
+            }
+
+            if(typeof this.passphrase !== "undefined") {
+                connectionOptions.passphrase = this.passphrase;
+            }
+
+            if(typeof this.passphrase !== "undefined") {
+                connectionOptions.passphrase = this.passphrase;
+            }
+
+            if(typeof this.privateKey !== "undefined") {
+                connectionOptions.privateKey = this.privateKey;
+            }
+
+            this.connection.connect(connectionOptions);
         } catch(error) {
             if(callbacks && callbacks.error) {
                 callbacks.error(error.message);
