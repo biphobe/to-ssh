@@ -8,11 +8,9 @@ Why task-oriented? Because each command you want to invoke is being added to the
 
 You can add 5 tasks to queue and run them all in the same time or run them one by one. It's up to you.
 
-
 ## Requirements
 
 * [node.js](http://nodejs.org/) - v0.8.7 or newer ([@todo] - check it - may run on even lower versions)
-
 
 ## Installation
 
@@ -59,6 +57,8 @@ var ssh = new ToSSH({
 	port: 22,
 	username: "root"
 	parallel: 2
+	// password: ''
+	// passphrase: ''
 });
 
 ssh.connect(function(hasError) {
