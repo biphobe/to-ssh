@@ -77,8 +77,8 @@ module.exports = (function () {
 
             this.connection.connect(connectionOptions);
         } catch(error) {
-            if(callbacks && callbacks.error) {
-                callbacks.error(error.message);
+            if(callback) {
+                callback(error.toString());
             }
         }
     };
