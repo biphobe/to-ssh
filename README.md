@@ -62,7 +62,7 @@ Connects to the host specified in options.
 ```javascript
 ssh.connect(function(error) {
     if(!error) {
-        console.log("successfully connected!");
+        console.log("Connected!"); // -> "Connected!"
     }
 });
 ```
@@ -75,7 +75,7 @@ Adds the tasks to queue and executes if possible.
 ```javascript
 ssh.addTask('whoami', function(stdout, stderr) {
     if(!stderr) {
-        console.log(stdout); // "root"
+        console.log(stdout); // -> "root"
     }
 });
 ```
