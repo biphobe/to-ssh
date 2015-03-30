@@ -70,12 +70,12 @@ ssh.connect(function(error) {
 #### ssh.addTask(`command`, [`callback`])
 Adds the tasks to queue and executes if possible.
 - `command` **{string}** - command to be executed
-- `callback` **{function}** - callback to be invoked after command's execution. Two parameters which will contain the output will be passed to the function: `stderr` and `stdout`, both of the **{string}** type
+- `callback` **{function}** - callback to be invoked after command's execution. Two parameters which will contain the output will be passed to the function: `stdout`, `stderr`, both of the **{string}** type
 
 ```javascript
-ssh.addTask('whoami', function(data, error) {
-    if(!error) {
-        console.log(data); // "root"
+ssh.addTask('whoami', function(stdout, stderr) {
+    if(!stderr) {
+        console.log(stdout); // "root"
     }
 });
 ```
