@@ -40,7 +40,7 @@ var ssh = new ToSSH(options);
 - `options` **{object}** - _required_ - object with options necessary to establish connection
     - options.`host` **{string}** - _required_ - hostname
     - options.`username` **{string}** - _optional_ - username; **default:** "root"
-    - options.`privateKey` **{string}** - _optional_ - path to your private key; **default:** null
+    - options.`privateKey` **{string}** - _optional_ - private key or path to your private key; **default:** null
     - options.`port` **{number}** - _optional_ - port; **default:** 22
     - options.`conecurrency` **{number}** - _optional_ - max number of concurrent connections to the host; **default:** 1
     - options.`password` **{string}** - _optional_ - password; **default:** null

@@ -1,5 +1,6 @@
 var Client =  require('ssh2').Client;
 var uuid = require('node-uuid');
+var fs = require('fs');
 
 module.exports = (function () {
     function ToSSH(options) {
@@ -17,7 +18,11 @@ module.exports = (function () {
         }
 
         if(options.privateKey) {
-            this.privateKey = options.privateKey;
+            if(fs.existsSync(options.privateKey)) {
+                this.privateKey = fs.readFileSync(options.privateKey)
+            } else {
+                this.privateKey = options.privateKey;
+            }
         }
 
         this.connection = new Client();
