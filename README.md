@@ -12,26 +12,12 @@ You can add 5 tasks to queue and run them all in the same time or run them one b
 
 * [node.js](http://nodejs.org/) - v0.8.7 or newer ([@todo] - check it - may run on even lower versions)
 
-## Installation
-
-```bash
-$ npm install to-ssh
-```
-
-Remember to load the library:
-
-```javascript
-var ToSSH = require('to-ssh');
-```
-
 ## Features
 
 * Handles multiple connections to different hosts in the same time
 * Can queue requests or send them in parallel
 * Runs callbacks asynchronously
 * Easy to implement, use and maintain
-
-# API & Examples
 
 ## Examples
 
@@ -75,9 +61,23 @@ ssh.addTask('sleep 2; date +"%T"'); // 19:23:30\n
 ssh.disconnect();
 ```
 
-## API
+## Installation
 
-#### constructor: new ToSSH(options)
+```bash
+$ npm install to-ssh
+```
+
+## Examples & API
+
+### Initialize
+
+```javascript
+var ToSSH = require('to-ssh');
+```
+```javascript
+var ssh = new ToSSH(options);
+```
+
 - `options` **{object}** - _required_ - object with options necessary to establish connection
     - options.`host` **{string}** - _required_ - hostname
     - options.`username` **{string}** - _required_ - username; **default:** "root"
@@ -89,11 +89,14 @@ ssh.disconnect();
 
 > **NOTE:** You always have to specify either `privateKey` or `password` for the client to establish connection!
 
-#### ToSSH.connect([callback]);
+#### ssh.connect([`callback`]);
+Connects to the host specified in options.
 - `callback` **{function}** - callback to be invoked on connection success/error. If an error occurs while connecting an {**string**} `error` will be passed to the callback
 
-#### ToSSH.disconnect();
+#### ssh.disconnect();
+Disconnects from the host.
 
-#### ToSSH.addTask(command, [callback]);
+#### ssh.addTask(`command`, [`callback`]);
+Adds the tasks to queue and executes if possible.
 - `command` **{string}** - command to be executed
 - `callback` **{function}** - callback to be invoked after command's execution. Two parameters which will contain the output will be passed to the function: `stderr` and `stdout`, both of the **{string}** type
