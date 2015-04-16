@@ -89,6 +89,7 @@ module.exports = (function () {
     };
 
     ToSSH.prototype.disconnect = function() {
+        this.connected = false;
         this.connection.end();
     };
 
