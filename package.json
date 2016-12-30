@@ -17,7 +17,7 @@
   ],
   "license": "MIT",
   "description": "Simple and easy to use Task-Oriented SSH2 wrapper",
-  "author": "Przemyslaw Tomaszewski <firian@o2.pl>",
+  "author": "Przemyslaw Tomaszewski <hi@bipho.be>",
   "homepage": "https://github.com/firian/to-ssh",
   "main": "index.js",
   "scripts": {
